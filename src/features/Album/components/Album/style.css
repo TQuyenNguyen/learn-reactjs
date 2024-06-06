@@ -1,0 +1,6 @@
+.album__thumbnail img {
+  width: 190px;
+}
+.album__name {
+  font-weight: bold;
+}
