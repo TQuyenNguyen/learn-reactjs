@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import TodoList from "../../components/TodoList/index";
+import TodoForm from "../../components/TodoForm";
 
 ListPage.propTypes = {};
 
@@ -29,7 +30,7 @@ function ListPage(props) {
     // clone current array to the new one
     const newTodoList = [...todoList];
 
-    console.log(todo, idx);
+    // console.log(todo, idx);
     //toggle state
     newTodoList[idx] = {
       ...newTodoList[idx],
@@ -51,8 +52,21 @@ function ListPage(props) {
     (todo) => filteredStatus === "all" || filteredStatus === todo.status
   );
 
+  const handleTodoForm = (values) => {
+    console.log("Form submit: ", values);
+    const newTodo = {
+      id: todoList.length + 1,
+      title: values.title,
+      status: "new",
+    };
+    const newTodoList = [...todoList, newTodo];
+    setTodoList(newTodoList);
+  };
+
   return (
     <div>
+      <h3>What to do</h3>
+      <TodoForm onsubmit={handleTodoForm} />
       <h2>Todo List</h2>
       <TodoList todoList={renderedTodoList} onTodoClick={handlerTodoClick} />
 

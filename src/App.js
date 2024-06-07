@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import AlbumFeature from "./features/Album";
-import TodoFeature from "./features/Todo";
+// import TodoFeature from "./features/Todo";
 import { Link, Route, Routes } from "react-router-dom";
 import productApi from "./api/productApi";
 import ListPage from "./features/Todo/pages/ListPage/ListPage";

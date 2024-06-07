@@ -19,6 +19,7 @@
     "react-hook-form": "^7.51.5",
     "react-router-dom": "^6.23.1",
     "react-scripts": "^5.0.1",
+    "recharts": "^2.13.0-alpha.4",
     "web-vitals": "^2.1.4",
     "yup": "^1.4.0"
   },
@@ -45,5 +46,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-private-property-in-object": "^7.24.7"
   }
 }
