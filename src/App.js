@@ -5,6 +5,7 @@ import AlbumFeature from "./features/Album";
 import { Link, Route, Routes } from "react-router-dom";
 import productApi from "./api/productApi";
 import ListPage from "./features/Todo/pages/ListPage/ListPage";
+import CounterFeature from "./features/Counter/Counter";
 
 function App() {
   useEffect(() => {
@@ -23,7 +24,11 @@ function App() {
       <p>
         <Link to="/albums">Albums</Link>
       </p>
+      <p>
+        <Link to="/counter">Counter</Link>
+      </p>
       <Routes>
+        <Route path="/counter" element={<CounterFeature />}></Route>
         <Route path="/todo" element={<ListPage />}></Route>
         <Route path="/albums" element={<AlbumFeature />}></Route>
       </Routes>
