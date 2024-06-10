@@ -6,6 +6,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import productApi from "./api/productApi";
 import ListPage from "./features/Todo/pages/ListPage/ListPage";
 import CounterFeature from "./features/Counter/Counter";
+import Header from "components/Header/Header";
 
 function App() {
   useEffect(() => {
@@ -17,7 +18,7 @@ function App() {
   }, []);
   return (
     <div className="App">
-      Homepage Header
+      <Header />
       <p>
         <Link to="/todo">Todo</Link>
       </p>
