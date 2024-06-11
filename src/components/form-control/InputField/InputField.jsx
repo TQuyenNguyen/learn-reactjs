@@ -25,10 +25,11 @@ function InputField(props) {
         <TextField
           {...field}
           fullWidth
+          margin="normal"
           label={label}
           disabled={disable}
           // error={!!hasError}
-          helperText="that error"
+          // helperText="that error"
         />
       )}
     />
