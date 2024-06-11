@@ -39,6 +39,18 @@ function RegisterForm(props) {
             return value.split(" ").length >= 2;
           }
         ),
+      email: yup
+        .string()
+        .required("Please enter your email")
+        .email("please enter valid email address"),
+      password: yup
+        .string()
+        .required("Please enter your password")
+        .min(6, "Please enter at least 6 characters"),
+      retypePassword: yup
+        .string()
+        .required("please retype your password")
+        .oneOf([yup.ref("password")], "password does not match!"),
     })
     .required();
   const form = useForm({

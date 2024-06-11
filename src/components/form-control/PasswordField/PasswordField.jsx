@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 
 import OutlinedInput from "@mui/material/OutlinedInput";
+// import { FormHelperText } from "@mui/material";
 
 PasswordField.propTypes = {
   form: PropTypes.object.isRequired,
@@ -51,6 +52,7 @@ function PasswordField(props) {
           //   error={!!hasError}
           //   helperText="that error"
         />
+        {/* <FormHelperText error={!!hasError }>{errors[name]?.message}</FormHelperText> */}
       </FormControl>
     </div>
   );
