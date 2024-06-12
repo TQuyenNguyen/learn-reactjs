@@ -32,7 +32,10 @@ LoginForm.propTypes = {
 };
 
 function LoginForm(props) {
+  const { onSubmit } = props;
+
   const classes = useStyles();
+
   const schema = yup
     .object({
       identifier: yup
@@ -42,6 +45,7 @@ function LoginForm(props) {
       password: yup.string().required("Please enter your password"),
     })
     .required();
+
   const form = useForm({
     defaultValues: {
       identifier: "",
@@ -49,8 +53,8 @@ function LoginForm(props) {
     },
     resolver: yupResolver(schema),
   });
+
   const handlerSubmit = async (values) => {
-    const { onSubmit } = props;
     if (onSubmit) {
       await onSubmit(values);
     }

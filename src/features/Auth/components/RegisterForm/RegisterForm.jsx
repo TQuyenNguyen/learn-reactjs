@@ -32,7 +32,10 @@ RegisterForm.propTypes = {
 };
 
 function RegisterForm(props) {
+  const { onSubmit } = props;
+
   const classes = useStyles();
+
   const schema = yup
     .object({
       fullName: yup
@@ -59,6 +62,7 @@ function RegisterForm(props) {
         .oneOf([yup.ref("password")], "password does not match!"),
     })
     .required();
+
   const form = useForm({
     defaultValues: {
       fullName: "",
@@ -68,8 +72,8 @@ function RegisterForm(props) {
     },
     resolver: yupResolver(schema),
   });
+
   const handlerSubmit = async (values) => {
-    const { onSubmit } = props;
     if (onSubmit) {
       await onSubmit(values);
     }
