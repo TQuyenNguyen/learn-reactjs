@@ -1,3 +1,4 @@
+import { Close } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -9,6 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
+import Login from "features/Auth/components/Login/Login";
 import Register from "features/Auth/components/Register/Register";
 import * as React from "react";
 import { Link, NavLink } from "react-router-dom";
@@ -27,10 +29,23 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     textDecoration: "none",
   },
+  closeButton: {
+    position: "absolute",
+    top: "10xp",
+    right: "10px",
+    color: "gray",
+    zIndex: 1,
+  },
 }));
+
+const MODE = {
+  LOGIN: "login",
+  REGISTER: "register",
+};
 
 export default function Header() {
   const [open, setOpen] = React.useState(false);
+  const [mode, setMode] = React.useState(MODE.LOGIN);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -91,8 +106,31 @@ export default function Header() {
           },
         }}
       >
+        {/* <IconButton className={classes.closeButton} onClick={handleClose}>
+          <Close />
+        </IconButton> */}
         <DialogContent>
-          <Register />
+          {mode === MODE.REGISTER && (
+            <>
+              <Register closeDialog={handleClose} />
+
+              <Box textAlign="center">
+                <Button color="primary" onClick={() => setMode(MODE.LOGIN)}>
+                  Already have an account. Login here
+                </Button>
+              </Box>
+            </>
+          )}
+          {mode === MODE.LOGIN && (
+            <>
+              <Login closeDialog={handleClose} />
+              <Box textAlign="center">
+                <Button color="primary" onClick={() => setMode(MODE.REGISTER)}>
+                  Don't have an account. Register here
+                </Button>
+              </Box>
+            </>
+          )}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>

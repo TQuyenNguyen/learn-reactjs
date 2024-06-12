@@ -7,8 +7,12 @@ import productApi from "./api/productApi";
 import ListPage from "./features/Todo/pages/ListPage/ListPage";
 import CounterFeature from "./features/Counter/Counter";
 import Header from "components/Header/Header";
+import { Button } from "@mui/material";
+import { useSnackbar } from "notistack";
 
 function App() {
+  const { enqueueSnackbar } = useSnackbar();
+
   useEffect(() => {
     const fetchProduct = async () => {
       const productlist = await productApi.getAll();
@@ -16,9 +20,16 @@ function App() {
     };
     fetchProduct();
   }, []);
+
+  const showNoti = () => {
+    enqueueSnackbar("Register Successfully", { variant: "success" });
+  };
+
   return (
     <div className="App">
       <Header />
+
+      <Button onClick={showNoti}>Show notification</Button>
       <p>
         <Link to="/todo">Todo</Link>
       </p>
