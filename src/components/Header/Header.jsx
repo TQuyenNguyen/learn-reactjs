@@ -1,5 +1,6 @@
-import { Close } from "@mui/icons-material";
+import { AccountCircle, Close } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
+import { Menu, MenuItem } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -12,7 +13,9 @@ import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
 import Login from "features/Auth/components/Login/Login";
 import Register from "features/Auth/components/Register/Register";
+import { logout } from "features/Auth/userSlice";
 import * as React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -44,8 +47,13 @@ const MODE = {
 };
 
 export default function Header() {
-  const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch();
+  const loggedInUser = useSelector((state) => state.user.current);
+  const isLoggedIn = !!loggedInUser.id;
+  const [opened, setOpen] = React.useState(false);
   const [mode, setMode] = React.useState(MODE.LOGIN);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -54,6 +62,19 @@ export default function Header() {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleUserClick = (e) => {
+    setAnchorEl(e.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogOutClick = () => {
+    const action = logout();
+    dispatch(action);
+  };
+
   const classes = useStyles();
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -80,11 +101,31 @@ export default function Header() {
             <Button color="inherit">Album</Button>
           </NavLink>
 
-          <Button color="inherit" onClick={handleClickOpen}>
-            Register
-          </Button>
+          {!isLoggedIn && (
+            <Button color="inherit" onClick={handleClickOpen}>
+              Login
+            </Button>
+          )}
+          {isLoggedIn && (
+            <IconButton color="inherit" onClick={handleUserClick}>
+              <AccountCircle />
+            </IconButton>
+          )}
         </Toolbar>
       </AppBar>
+
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleCloseMenu}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+      >
+        <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
+        <MenuItem onClick={handleLogOutClick}>Logout</MenuItem>
+      </Menu>
+
       <Dialog
         disableEscapeKeyDown
         onClose={(event, reason) => {
@@ -93,7 +134,7 @@ export default function Header() {
             setOpen(false);
           }
         }}
-        open={open}
+        open={opened}
         PaperProps={{
           component: "form",
           onSubmit: (event) => {
