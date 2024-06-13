@@ -14,6 +14,13 @@ const useStyle = makeStyles((theme) => ({
   right: {
     flex: "1 1 0",
   },
+  pagination: {
+    display: "flex",
+    flexFlow: "nowrap",
+    justifyContent: "center",
+    marginTop: "20px",
+    paddingBottom: "20px",
+  },
 }));
 
 function ProductListPage(props) {
@@ -21,14 +28,14 @@ function ProductListPage(props) {
 
   const [productList, setProductList] = useState([]);
   const [pagination, setPagination] = useState({
-    limit: 8,
+    limit: 12,
     total: 10,
     page: 1,
   });
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({
     _page: 1,
-    _limit: 8,
+    _limit: 12,
   });
 
   useEffect(() => {
@@ -61,17 +68,18 @@ function ProductListPage(props) {
           <Grid item className={classes.right}>
             <Paper elevation={0}>
               {loading ? (
-                <ProductSkeletonList length={8} />
+                <ProductSkeletonList length={12} />
               ) : (
                 <ProductList data={productList} />
               )}
-
-              <Pagination
-                color="primary"
-                count={Math.ceil(pagination.total / pagination.limit)}
-                page={pagination.page}
-                onChange={handlePageChange}
-              ></Pagination>
+              <Box className={classes.pagination}>
+                <Pagination
+                  color="primary"
+                  count={Math.ceil(pagination.total / pagination.limit)}
+                  page={pagination.page}
+                  onChange={handlePageChange}
+                ></Pagination>
+              </Box>
             </Paper>
           </Grid>
         </Grid>
