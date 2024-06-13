@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Paper, Typography } from "@mui/material";
+import { Box, Container, Grid, Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import productApi from "api/productApi";
 import React, { useEffect, useState } from "react";
