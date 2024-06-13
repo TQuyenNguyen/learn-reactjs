@@ -15,17 +15,6 @@ import ProductListPage from "features/Product/pages/ProductListPage";
 function App() {
   const { enqueueSnackbar } = useSnackbar();
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      const params = {
-        _limit: 10,
-      };
-      const productlist = await productApi.getAll(params);
-      console.log(productlist);
-    };
-    fetchProduct();
-  }, []);
-
   const showNoti = () => {
     enqueueSnackbar("Register Successfully", { variant: "success" });
   };

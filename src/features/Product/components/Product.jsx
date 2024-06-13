@@ -1,4 +1,3 @@
-import { Skeleton } from "@material-ui/lab";
 import { Box, Typography } from "@mui/material";
 import { STATIC_HOST, THUMBNAIL_PLACEHOLDER } from "constant/index";
 import PropTypes from "prop-types";
