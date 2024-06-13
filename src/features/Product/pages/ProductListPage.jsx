@@ -3,6 +3,7 @@ import { makeStyles } from "@mui/styles";
 import productApi from "api/productApi";
 import React, { useEffect, useState } from "react";
 import ProductSkeletonList from "../components/ProductSkeletonList";
+import ProductList from "../components/ProductList";
 
 const useStyle = makeStyles((theme) => ({
   root: {},
@@ -10,7 +11,7 @@ const useStyle = makeStyles((theme) => ({
     width: "250px",
   },
   right: {
-    flex: "1 1 auto",
+    flex: "1 1 0",
   },
 }));
 
@@ -33,7 +34,7 @@ function ProductListPage(props) {
       } catch (error) {
         console.log("Fail to fetch product list:", error);
       }
-      // setLoading(false);
+      setLoading(false);
     })();
   }, []);
 
@@ -49,7 +50,7 @@ function ProductListPage(props) {
               {loading ? (
                 <ProductSkeletonList />
               ) : (
-                <Typography>Product List</Typography>
+                <ProductList data={productList} />
               )}
             </Paper>
           </Grid>
