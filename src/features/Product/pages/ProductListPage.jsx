@@ -33,7 +33,18 @@ function ProductListPage(props) {
 
   const history = useHistory();
   const location = useLocation();
-  const queryParams = queryString.parse(location.search);
+  const queryParams = useMemo(() => {
+    const params = queryString.parse(location.search);
+
+    return {
+      ...params,
+      _page: Number.parseInt(params._page) || 1,
+      _limit: Number.parseInt(params._limit) || 12,
+      _sort: params._sort || "salePrice:ASC",
+      isPromotion: params.isPromotion === "true",
+      isFreeShip: params.isFreeShip === "true",
+    };
+  }, [location.search]);
 
   const [productList, setProductList] = useState([]);
   const [pagination, setPagination] = useState({
@@ -49,25 +60,24 @@ function ProductListPage(props) {
   //   _sort: "salePrice:ASC",
   // });
 
-  const [filters, setFilters] = useState({
-    ...queryParams,
-    _page: Number.parseInt(queryParams._page) || 1,
-    _limit: Number.parseInt(queryParams._limit) || 12,
-    _sort: queryParams._sort || "salePrice:ASC",
-  });
+  // const [filters, setFilters] = useState({
+  //   ...queryParams,
+  //   _page: Number.parseInt(queryParams._page) || 1,
+  //   _limit: Number.parseInt(queryParams._limit) || 12,
+  //   _sort: queryParams._sort || "salePrice:ASC",
+  // });
 
-  useEffect(() => {
-    // console.log({history ,filters})
-    history.push({
-      pathname: history.location.pathname,
-      search: queryString.stringify(filters),
-    });
-  }, [history, filters]);
+  // useEffect(() => {
+  //   history.push({
+  //     pathname: history.location.pathname,
+  //     search: queryString.stringify(filters),
+  //   });
+  // }, [history, filters]);
 
   useEffect(() => {
     (async () => {
       try {
-        const { data, pagination } = await productApi.getAll(filters);
+        const { data, pagination } = await productApi.getAll(queryParams);
         setProductList(data);
         setPagination(pagination);
       } catch (error) {
@@ -75,31 +85,66 @@ function ProductListPage(props) {
       }
       setLoading(false);
     })();
-  }, [filters]);
+  }, [queryParams]);
 
   const handlePageChange = (e, page) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
+    // setFilters((prevFilters) => ({
+    //   ...prevFilters,
+    //   _page: page,
+    // }));
+
+    const filters = {
+      ...queryParams,
       _page: page,
-    }));
+    };
+
+    history.push({
+      pathname: history.location.pathname,
+      search: queryString.stringify(filters),
+    });
   };
 
   const handleSortChange = (newSortValue) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
+    // setFilters((prevFilters) => ({
+    //   ...prevFilters,
+    //   _sort: newSortValue,
+    // }));
+
+    const filters = {
+      ...queryParams,
       _sort: newSortValue,
-    }));
+    };
+
+    history.push({
+      pathname: history.location.pathname,
+      search: queryString.stringify(filters),
+    });
   };
 
   const handleFiltersChange = (newFilters) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
+    // setFilters((prevFilters) => ({
+    //   ...prevFilters,
+    //   ...newFilters,
+    // }));
+
+    const filters = {
+      ...queryParams,
       ...newFilters,
-    }));
+    };
+
+    history.push({
+      pathname: history.location.pathname,
+      search: queryString.stringify(filters),
+    });
   };
 
   const setNewFilters = (newFilters) => {
-    setFilters(newFilters);
+    // setFilters(newFilters);
+
+    history.push({
+      pathname: history.location.pathname,
+      search: queryString.stringify(newFilters),
+    });
   };
 
   return (
@@ -109,7 +154,7 @@ function ProductListPage(props) {
           <Grid item className={classes.left}>
             <Paper elevation={0}>
               <ProductFilters
-                filters={filters}
+                filters={queryParams}
                 onChange={handleFiltersChange}
               />
             </Paper>
@@ -117,10 +162,10 @@ function ProductListPage(props) {
           <Grid item className={classes.right}>
             <Paper elevation={0}>
               <ProductSort
-                currentSort={filters._sort}
+                currentSort={queryParams._sort}
                 onChange={handleSortChange}
               />
-              <FilterViewer filters={filters} onChange={setNewFilters} />
+              <FilterViewer filters={queryParams} onChange={setNewFilters} />
 
               {loading ? (
                 <ProductSkeletonList length={12} />
