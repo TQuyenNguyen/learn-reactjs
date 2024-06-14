@@ -46,5 +46,11 @@ const cartSlice = createSlice({
 });
 
 const { actions, reducer } = cartSlice;
-export const { showMiniCart, hideMiniCart } = actions; //name export
+export const {
+  showMiniCart,
+  hideMiniCart,
+  addToCart,
+  setQuantity,
+  removeFromCart,
+} = actions; //name export
 export default reducer; //default export

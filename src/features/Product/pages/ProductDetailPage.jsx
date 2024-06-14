@@ -10,6 +10,8 @@ import ProductMenu from "../components/ProductMenu";
 import ProductDescription from "../components/ProductDescription";
 import ProductAdditional from "../components/ProductAdditional";
 import ProductReview from "../components/ProductReview";
+import { useDispatch } from "react-redux";
+import { addToCart } from "features/Cart/CartSlice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,14 +37,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ProductDetailPage(props) {
+function ProductDetailPage() {
   const classes = useStyles();
   const {
     params: { productId },
     url,
   } = useRouteMatch();
-
   const { product, loading } = useProductDetail(productId);
+  const dispatch = useDispatch();
 
   if (loading) {
     return (
@@ -52,8 +54,14 @@ function ProductDetailPage(props) {
     );
   }
 
-  const handleAddToCartSubmit = (formvalues) => {
-    console.log("form submit: ", formvalues);
+  const handleAddToCartSubmit = ({ quantity }) => {
+    const action = addToCart({
+      id: product.id,
+      product,
+      quantity,
+    });
+    console.log(action);
+    dispatch(action);
   };
 
   return (
@@ -71,6 +79,7 @@ function ProductDetailPage(props) {
             </Grid>
           </Grid>
         </Paper>
+
         <ProductMenu />
 
         <Switch>
