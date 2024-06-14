@@ -1,6 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "@mui/material";
-import InputField from "components/form-control/InputField/InputField";
 import QuantityField from "components/form-control/QuantityField/QuantityField";
 import PropTypes from "prop-types";
 import React from "react";
@@ -34,7 +33,7 @@ function AddToCartForm({ onSubmit = null }) {
 
   return (
     <form onSubmit={form.handleSubmit(handleSubmit)}>
-      <InputField name="quantity" label="Quantity" form={form} />
+      <QuantityField name="quantity" label="Quantity" form={form} />
 
       <Button
         type="submit"
