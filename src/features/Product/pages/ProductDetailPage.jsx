@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Container, Grid, Paper } from "@mui/material";
+import { Box, Container, Grid, LinearProgress, Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import ProductThumbnail from "../components/ProductThumbnail";
 import { Route, Switch, useRouteMatch } from "react-router";
@@ -12,7 +12,9 @@ import ProductAdditional from "../components/ProductAdditional";
 import ProductReview from "../components/ProductReview";
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
+  root: {
+    paddingBottom: "27px",
+  },
 
   left: {
     width: "400px",
@@ -23,6 +25,13 @@ const useStyles = makeStyles((theme) => ({
   right: {
     flex: "1 1 0",
     padding: "12px",
+  },
+
+  loading: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
   },
 }));
 
@@ -36,8 +45,11 @@ function ProductDetailPage(props) {
   const { product, loading } = useProductDetail(productId);
 
   if (loading) {
-    //Make it more attractive
-    return <Box>Loading</Box>;
+    return (
+      <Box className={classes.loading}>
+        <LinearProgress />
+      </Box>
+    );
   }
 
   const handleAddToCartSubmit = (formvalues) => {
