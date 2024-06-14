@@ -2,6 +2,8 @@ import React from "react";
 import { Box, Container, Grid, Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import ProductThumbnail from "../components/ProductThumbnail";
+import { useRouteMatch } from "react-router";
+import useProductDetail from "../hooks/useProductDetail";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -20,6 +22,16 @@ const useStyles = makeStyles((theme) => ({
 
 function ProductDetailPage(props) {
   const classes = useStyles();
+  const {
+    params: { productId },
+  } = useRouteMatch();
+
+  const { product, loading } = useProductDetail(productId);
+
+  if (loading) {
+    //Make it more attractive
+    return <Box>Loading</Box>;
+  }
 
   return (
     <Box className={classes.root}>
@@ -28,7 +40,7 @@ function ProductDetailPage(props) {
           <Grid container>
             <Grid item className={classes.left}>
               Thumbnail
-              <ProductThumbnail product={{}} />
+              <ProductThumbnail product={product} />
             </Grid>
 
             <Grid item className={classes.right}>
