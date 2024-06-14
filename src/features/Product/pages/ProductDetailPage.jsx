@@ -4,6 +4,7 @@ import { makeStyles } from "@mui/styles";
 import ProductThumbnail from "../components/ProductThumbnail";
 import { useRouteMatch } from "react-router";
 import useProductDetail from "../hooks/useProductDetail";
+import ProductInfo from "../components/ProductInfo";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -45,6 +46,7 @@ function ProductDetailPage(props) {
 
             <Grid item className={classes.right}>
               Info product
+              <ProductInfo product={product} />
             </Grid>
           </Grid>
         </Paper>
