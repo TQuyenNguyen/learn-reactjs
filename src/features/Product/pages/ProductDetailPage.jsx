@@ -45,12 +45,10 @@ function ProductDetailPage(props) {
         <Paper elevation={0}>
           <Grid container>
             <Grid item className={classes.left}>
-              Thumbnail
               <ProductThumbnail product={product} />
             </Grid>
 
             <Grid item className={classes.right}>
-              Info product
               <ProductInfo product={product} />
               <AddToCartForm onSubmit={handleAddToCartSubmit} />
             </Grid>
