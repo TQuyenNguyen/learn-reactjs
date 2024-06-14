@@ -11,6 +11,7 @@ import { useSnackbar } from "notistack";
 import ProductFeature from "features/Product";
 import ProductListPage from "features/Product/pages/ProductListPage";
 import { Route, Switch } from "react-router";
+import CartFeature from "features/Cart/CartFeature";
 
 function App() {
   const { enqueueSnackbar } = useSnackbar();
@@ -29,6 +30,7 @@ function App() {
         <Route path="/todo" component={ListPage}></Route>
         <Route path="/albums" component={AlbumFeature}></Route>
         <Route path="/products" component={ProductFeature}></Route>
+        <Route path="/cart" component={CartFeature}></Route>
       </Switch>
     </div>
   );
