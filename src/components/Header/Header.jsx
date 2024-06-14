@@ -1,6 +1,6 @@
-import { AccountCircle, Close } from "@mui/icons-material";
+import { AccountCircle, Close, ShoppingCart } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Menu, MenuItem } from "@mui/material";
+import { Badge, Menu, MenuItem } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -14,9 +14,10 @@ import { makeStyles } from "@mui/styles";
 import Login from "features/Auth/components/Login/Login";
 import Register from "features/Auth/components/Register/Register";
 import { logout } from "features/Auth/userSlice";
+import { cartItemsCountSelector } from "features/Cart/selector";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,6 +51,10 @@ export default function Header() {
   const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.user.current);
   const isLoggedIn = !!loggedInUser.id;
+  //bug here
+  // const cartItemsCount = useSelector(cartItemsCountSelector);
+  const history = useHistory();
+
   const [opened, setOpen] = React.useState(false);
   const [mode, setMode] = React.useState(MODE.LOGIN);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -73,6 +78,10 @@ export default function Header() {
   const handleLogOutClick = () => {
     const action = logout();
     dispatch(action);
+  };
+
+  const handleCartClick = () => {
+    history.push("/cart");
   };
 
   const classes = useStyles();
@@ -112,6 +121,17 @@ export default function Header() {
               Login
             </Button>
           )}
+
+          <IconButton
+            aria-label="show 4 new mails"
+            color="inherit"
+            onClick={handleCartClick}
+          >
+            <Badge badgeContent={"cartItemsCount"} color="secondary">
+              <ShoppingCart />
+            </Badge>
+          </IconButton>
+
           {isLoggedIn && (
             <IconButton color="inherit" onClick={handleUserClick}>
               <AccountCircle />
