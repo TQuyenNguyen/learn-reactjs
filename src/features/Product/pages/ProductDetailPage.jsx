@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Container, Grid, Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import ProductThumbnail from "../components/ProductThumbnail";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -27,6 +28,7 @@ function ProductDetailPage(props) {
           <Grid container>
             <Grid item className={classes.left}>
               Thumbnail
+              <ProductThumbnail product={{}} />
             </Grid>
 
             <Grid item className={classes.right}>
