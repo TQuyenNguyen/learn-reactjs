@@ -1,17 +1,16 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
 import ProductListPage from "./pages/ProductListPage";
 import { Box } from "@mui/material";
+import { Route, Switch } from "react-router";
 
 ProductFeature.propTypes = {};
 
 function ProductFeature(props) {
   return (
     <Box pt={4}>
-      <Routes>
-        <Route path="/products" element={<ProductListPage />}></Route>
-      </Routes>
-      <ProductListPage />
+      <Switch>
+        <Route path="/products" component={ProductListPage}></Route>
+      </Switch>
     </Box>
   );
 }

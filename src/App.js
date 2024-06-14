@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import "./App.css";
 import AlbumFeature from "./features/Album";
 // import TodoFeature from "./features/Todo";
-import { Link, Route, Routes } from "react-router-dom";
 import productApi from "./api/productApi";
 import ListPage from "./features/Todo/pages/ListPage/ListPage";
 import CounterFeature from "./features/Counter/Counter";
@@ -11,6 +10,7 @@ import { Button } from "@mui/material";
 import { useSnackbar } from "notistack";
 import ProductFeature from "features/Product";
 import ProductListPage from "features/Product/pages/ProductListPage";
+import { Route, Switch } from "react-router";
 
 function App() {
   const { enqueueSnackbar } = useSnackbar();
@@ -24,12 +24,12 @@ function App() {
       <Header />
 
       {/* <Button onClick={showNoti}>Show notification</Button> */}
-      <Routes>
-        <Route path="/counter" element={<CounterFeature />}></Route>
-        <Route path="/todo" element={<ListPage />}></Route>
-        <Route path="/albums" element={<AlbumFeature />}></Route>
-        <Route path="/products" element={<ProductFeature />}></Route>
-      </Routes>
+      <Switch>
+        <Route path="/counter" component={CounterFeature}></Route>
+        <Route path="/todo" component={ListPage}></Route>
+        <Route path="/albums" component={AlbumFeature}></Route>
+        <Route path="/products" component={ProductFeature}></Route>
+      </Switch>
     </div>
   );
 }
