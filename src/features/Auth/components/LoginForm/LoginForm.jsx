@@ -86,7 +86,7 @@ function LoginForm(props) {
           color="primary"
           fullWidth
         >
-          Create an account
+          Login
         </Button>
       </form>
     </div>
